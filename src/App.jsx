@@ -5,7 +5,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { 
-  Gamepad2, 
   Search, 
   Music, 
   Settings, 
@@ -25,57 +24,6 @@ import { motion, AnimatePresence } from 'motion/react';
 import { smartSearch } from './services/geminiService';
 
 // --- Mock Data ---
-const GAMES = [
-  {
-    id: '1',
-    title: 'Slope',
-    description: 'A fast-paced 3D runner game. Navigate through a futuristic city.',
-    thumbnail: 'https://picsum.photos/seed/slope/400/225',
-    url: 'https://slopegame.io/',
-    category: 'Action'
-  },
-  {
-    id: '2',
-    title: '2048',
-    description: 'The classic puzzle game. Join the numbers and get to the 2048 tile!',
-    thumbnail: 'https://picsum.photos/seed/2048/400/225',
-    url: 'https://play2048.co/',
-    category: 'Puzzle'
-  },
-  {
-    id: '3',
-    title: 'Cookie Clicker',
-    description: 'The ultimate idle game. Bake an infinite amount of cookies.',
-    thumbnail: 'https://picsum.photos/seed/cookie/400/225',
-    url: 'https://orteil.dashnet.org/cookieclicker/',
-    category: 'Idle'
-  },
-  {
-    id: '4',
-    title: 'Tetris',
-    description: 'Classic block stacking. The world-famous puzzle game.',
-    thumbnail: 'https://picsum.photos/seed/tetris/400/225',
-    url: 'https://tetris.com/play-tetris',
-    category: 'Puzzle'
-  },
-  {
-    id: '5',
-    title: 'Paper.io 2',
-    description: 'Capture as much territory as possible and beat the competition.',
-    thumbnail: 'https://picsum.photos/seed/paper/400/225',
-    url: 'https://paper-io.com/',
-    category: 'IO'
-  },
-  {
-    id: '6',
-    title: 'Shell Shockers',
-    description: 'The world\'s most advanced egg-based multiplayer shooter.',
-    thumbnail: 'https://picsum.photos/seed/egg/400/225',
-    url: 'https://shellshock.io/',
-    category: 'Action'
-  }
-];
-
 const TRACKS = [
   {
     id: '1',
@@ -104,7 +52,6 @@ const TRACKS = [
 
 const Sidebar = ({ activeTab, setActiveTab }) => {
   const menuItems = [
-    { id: 'games', icon: Gamepad2, label: 'Games' },
     { id: 'search', icon: Search, label: 'Search' },
     { id: 'music', icon: Music, label: 'Music' },
     { id: 'settings', icon: Settings, label: 'Settings' },
@@ -153,50 +100,6 @@ const Sidebar = ({ activeTab, setActiveTab }) => {
           <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
           <span className="text-sm font-mono">ONLINE_STABLE</span>
         </div>
-      </div>
-    </div>
-  );
-};
-
-const GamesTab = () => {
-  return (
-    <div className="p-8 h-full overflow-y-auto custom-scrollbar">
-      <header className="mb-12">
-        <h2 className="text-4xl font-display font-bold mb-2">Unblocked Games</h2>
-        <p className="text-white/50">Curated selection of high-performance web games.</p>
-      </header>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {GAMES.map((game) => (
-          <motion.div
-            key={game.id}
-            whileHover={{ y: -5 }}
-            className="group relative glass rounded-2xl overflow-hidden cursor-pointer"
-          >
-            <div className="aspect-video overflow-hidden">
-              <img 
-                src={game.thumbnail} 
-                alt={game.title} 
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                referrerPolicy="no-referrer"
-              />
-            </div>
-            <div className="p-5">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-mono text-emerald-400 uppercase tracking-widest">{game.category}</span>
-                <ExternalLink size={14} className="text-white/30 group-hover:text-emerald-400 transition-colors" />
-              </div>
-              <h3 className="text-xl font-bold mb-2">{game.title}</h3>
-              <p className="text-sm text-white/50 line-clamp-2">{game.description}</p>
-            </div>
-            <a 
-              href={game.url} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="absolute inset-0 z-10"
-            />
-          </motion.div>
-        ))}
       </div>
     </div>
   );
@@ -492,7 +395,7 @@ const SettingsTab = ({
 };
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState('games');
+  const [activeTab, setActiveTab] = useState('search');
   const [backgroundType, setBackgroundType] = useState('default');
 
   return (
@@ -520,7 +423,6 @@ export default function App() {
             transition={{ duration: 0.3, ease: "easeOut" }}
             className="h-full"
           >
-            {activeTab === 'games' && <GamesTab />}
             {activeTab === 'search' && <SearchTab />}
             {activeTab === 'music' && <MusicTab />}
             {activeTab === 'settings' && (
